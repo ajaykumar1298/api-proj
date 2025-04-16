@@ -181,8 +181,8 @@ function App() {
         {/* show graph */}
         {products.length > 0 && (
           <div className="all-chart">
-            <SimplePieChart capacityArr={capacityArr} />
             <ProductColorChart colorArr={colorArr} />
+            <SimplePieChart capacityArr={capacityArr} />
           </div>
         )}
       </div>
