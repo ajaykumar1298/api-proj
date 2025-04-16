@@ -14,11 +14,20 @@
   padding-right: 5px;
 }
 
-.title,.product-label {
+.title,
+.product-label {
   font-weight: bold;
   color: grey;
 }
-.title{
+.title {
   font-size: 20px;
   color: black;
+}
+
+.error {
+  color: red;
+}
+
+.success-msg {
+  color: green;
 }
