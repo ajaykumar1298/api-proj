@@ -148,6 +148,10 @@ function App() {
           />
         </div>
 
+        {/* show error */}
+        {err && <div className="error">{err}</div>}
+        {/* show product add msg  */}
+        {successMsg && <div className="success-msg">{successMsg}</div>}
         {/* Filter section */}
         <div className="filter-container">
           {/* Capacity Filter */}
@@ -164,11 +168,6 @@ function App() {
             selectedColor={selectedColor}
           />
         </div>
-
-        {/* show error */}
-        {err && <div className="error">{err}</div>}
-        {/* show product add msg  */}
-        {successMsg && <div className="success-msg">{successMsg}</div>}
 
         {/* show filtered products */}
         <div className="all-product">
