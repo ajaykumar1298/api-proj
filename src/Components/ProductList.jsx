@@ -14,7 +14,7 @@ function ProductList({ products }) {
                   <span>{value}</span>
                 </div>
               ))
-            : null}
+            : ""}
         </div>
       ))}
     </>
