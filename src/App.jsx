@@ -20,7 +20,7 @@ function App() {
   const [inputValue, setInputValue] = useState("");
   const [jsonInputValue, setJsonInputValue] = useState("");
   const [reload, setReload] = useState(false);
-  const [isload,setIsload]=useState(false)
+  const [isload, setIsload] = useState(false);
 
   // Fetch products
   useEffect(() => {
@@ -35,22 +35,12 @@ function App() {
   // Update filters & filtered list on products change or filter change
   useEffect(() => {
     const capacities = [
-      ...new Set(
-        products
-          .map((p) => p?.data?.capacity)
-          .filter(Boolean) 
-      ),
+      ...new Set(products.map((p) => p?.data?.capacity).filter(Boolean)),
     ];
-
 
     const colors = [
-      ...new Set(
-        products
-          .map((p) => p?.data?.color)
-          .filter(Boolean) 
-      ),
+      ...new Set(products.map((p) => p?.data?.color).filter(Boolean)),
     ];
-
 
     setCapacityFilter(capacities);
     setColorFilter(colors);
@@ -67,7 +57,6 @@ function App() {
 
     setFilteredProducts(filtered);
   }, [products, selectedCapacity, selectedColor]);
-
 
   const addProduct = async () => {
     if (!inputValue.trim() || !jsonInputValue.trim()) {
@@ -98,8 +87,7 @@ function App() {
         }
       );
 
-     await response.json();
-    
+      await response.json();
 
       setErr(null);
       setSuccessMsg("Product added successfully!");
@@ -116,22 +104,21 @@ function App() {
     }
   };
 
-
-  const handleCapacityChange = (e) =>{
+  const handleCapacityChange = (e) => {
     setSelectedCapacity(e.target.value);
-  } 
+  };
   const handleColorChange = (e) => {
     setSelectedColor(e.target.value);
-  }
+  };
 
   function getArrFilter(key) {
     let result = [];
-  
+
     products.forEach((product) => {
       if (product.data && product.data[key]) {
         const value = product.data[key];
         const existing = result.find((item) => item.name === value);
-  
+
         if (existing) {
           existing.value += 1;
         } else {
@@ -139,11 +126,11 @@ function App() {
         }
       }
     });
-  
+
     return result;
   }
-  let capacityArr=getArrFilter("capacity")
-  let colorArr=getArrFilter("color")
+  let capacityArr = getArrFilter("capacity");
+  let colorArr = getArrFilter("color");
 
   return (
     <>
@@ -152,16 +139,30 @@ function App() {
 
         {/* form section */}
         <div className="form-container">
-        <InputForm inputValue={inputValue} setInputValue={setInputValue} jsonInputValue={jsonInputValue} setJsonInputValue={setJsonInputValue} addProduct={addProduct}/>
+          <InputForm
+            inputValue={inputValue}
+            setInputValue={setInputValue}
+            jsonInputValue={jsonInputValue}
+            setJsonInputValue={setJsonInputValue}
+            addProduct={addProduct}
+          />
         </div>
 
         {/* Filter section */}
         <div className="filter-container">
           {/* Capacity Filter */}
-          <FilterCapacity capacityFilter ={capacityFilter } handleCapacityChange={handleCapacityChange} selectedCapacity={selectedCapacity}/>
+          <FilterCapacity
+            capacityFilter={capacityFilter}
+            handleCapacityChange={handleCapacityChange}
+            selectedCapacity={selectedCapacity}
+          />
 
           {/* Color Filter */}
-          <FilterColor colorFilter={colorFilter} handleColorChange={handleColorChange} selectedColor={selectedColor}/>
+          <FilterColor
+            colorFilter={colorFilter}
+            handleColorChange={handleColorChange}
+            selectedColor={selectedColor}
+          />
         </div>
 
         {/* show error */}
@@ -173,17 +174,19 @@ function App() {
         <div className="all-product">
           {filteredProducts.length > 0 ? (
             <ProductList products={filteredProducts} />
-          ): (
+          ) : (
             <p>No products found.</p>
           )}
         </div>
 
         {/* show graph */}
-        <div className="all-chart">
-    <SimplePieChart capacityArr={capacityArr}/>
-    {/* <SimplePieChart capacityArr={colorArr}/> */}
-    <ProductColorChart colorArr={colorArr}/>
-  </div>
+        {products.length > 0 && (
+          <div className="all-chart">
+            <SimplePieChart capacityArr={capacityArr} />
+            {/* <SimplePieChart capacityArr={colorArr}/> */}
+            <ProductColorChart colorArr={colorArr} />
+          </div>
+        )}
       </div>
     </>
   );
