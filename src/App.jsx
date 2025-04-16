@@ -32,7 +32,7 @@ function App() {
       .catch((e) => console.log(e));
   }, [reload]);
 
-  // Update filters & filtered list on products change or filter change
+  // Update filters
   useEffect(() => {
     const capacities = [
       ...new Set(products.map((p) => p?.data?.capacity).filter(Boolean)),
@@ -93,7 +93,7 @@ function App() {
       setSuccessMsg("Product added successfully!");
       setInputValue("");
       setJsonInputValue("");
-      setReload((prev) => !prev); // Refresh product list
+      setReload((prev) => !prev);
 
       setTimeout(() => {
         setSuccessMsg(null);
@@ -135,7 +135,7 @@ function App() {
   return (
     <>
       <div className="container">
-        {/* <h1>Product Listing With Charts</h1> */}
+        <h1>Product Listing With Charts</h1>
 
         {/* form section */}
         <div className="form-container">
@@ -183,7 +183,6 @@ function App() {
         {products.length > 0 && (
           <div className="all-chart">
             <SimplePieChart capacityArr={capacityArr} />
-            {/* <SimplePieChart capacityArr={colorArr}/> */}
             <ProductColorChart colorArr={colorArr} />
           </div>
         )}
